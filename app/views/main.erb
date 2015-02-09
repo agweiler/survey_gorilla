@@ -1,0 +1,16 @@
+<body>
+  <div>
+    <h1>Welcome <%= session[:user_name] %></h1><br/>
+    What would you like to do?<br/>
+
+    <form action="/create" method='get'>
+      <input type="submit" value="Create A Survey">
+    </form>
+
+     <form action="/complete" method='get'>
+      <input type="submit" value="Complete A Survey">
+    </form>
+  </div>
+
+  <p><a href="/logout"> Log Out</a></p>
+</body>

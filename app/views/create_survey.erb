@@ -1,0 +1,58 @@
+<body>
+  <script> $(document).ready(function(){
+    // $("select option:nth-child(1)").attr("selected","selected");
+      // $("option")[0].attr("selected", "selected");
+
+
+    $("#select_box").change(function() {
+      // $(this).attr('disabled', true);
+      var num_of_choices = $('#select_box').val();
+
+// Instead of Ajax call, save yourself some hours by using JS append (ref: http://www.w3schools.com/jquery/html_append.asp)
+      $.ajax({
+        type: "POST",
+        url: "/create",
+        dataType: "html",
+        data: {"num_of_choices": num_of_choices},
+        success: function(new_section) {
+          // console.log(new_section);
+          $('#all_choices').append(new_section);
+        }
+      });
+      $(this).attr('disabled', true);
+      // event.preventDefault();
+    });
+
+    });
+  </script>
+  <div>
+    <h1>Welcome <%= session[:user_name] %></h1><br/>
+    <form action="/create/done" method="post">
+      <label>Your survey title: </label></br>
+      <p><input type="text" name="survey_title"></p>
+
+      <label>Your first question: </label><br>
+      <p><textarea cols="80" rows="2" name="new_question"></textarea></p>
+
+      <label>How many options will this question have? Be sure, as you won't be able to change this once you select... </label>
+      <p><select id="select_box" name="num_of_choices">
+            <% for i in 1..8 %>
+              <option value="<%= i %>"><%= i %></option>
+            <% end %>
+         </select>
+         <br/>
+      </p>
+
+
+      <!-- <p><input type="submit" value="Create Another Question"></p> -->
+
+      <section id="all_choices">
+      </section>
+
+      <p><input type="submit" value="Done"></p>
+    </form>
+
+  </div>
+
+  <p><a href="/logout"> Log Out</a></p>
+</body>
