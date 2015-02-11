@@ -20,7 +20,16 @@
         }
       });
       $(this).attr('disabled', true);
-      // event.preventDefault();
+
+
+    });
+
+    $("#done").click(function() {
+      var total_choices = $("section textarea").length;
+      var choice_array = [];
+      for (i = 0; i < total_choices; i++) {
+        choice_array.push( $("section textarea:eq(" + i + ")").val() );    // loop thru this way
+      }
     });
 
     });
@@ -49,7 +58,7 @@
       <section id="all_choices">
       </section>
 
-      <p><input type="submit" value="Done"></p>
+      <p><input id="done" type="submit" value="Done"></p>
     </form>
 
   </div>
